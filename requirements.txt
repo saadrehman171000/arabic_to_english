@@ -1,5 +1,5 @@
-torch==2.0.0+cu120  # PyTorch version that is compatible with your setup
-torchtext==0.16.2  # Update to a compatible version of torchtext
+torch==2.2.0  # Use a compatible version of torch
+torchtext==0.16.2  # Ensure compatibility with the torch version
 streamlit>=1.25.0
 nltk>=3.8.1
 pyarabic>=0.6.15
