@@ -127,7 +127,13 @@ def preprocess(sequence, vocab, src=True):
 
 # Function to get translation
 @st.cache_data
-def get_translation(input_text, src_vocab, trg_vocab, model, device):
+def get_translation(input_text):
+    # Get model and vocabularies from session state
+    src_vocab = st.session_state.src_vocab
+    trg_vocab = st.session_state.trg_vocab
+    model = st.session_state.model
+    device = st.session_state.device
+    
     input_tensor = preprocess(input_text, src_vocab)
     input_tensor = input_tensor[:, None].to(torch.int64).to(device)
 
@@ -365,13 +371,7 @@ if translate_button and input_text:
             progress_bar.progress(percent_complete + 1)
         
         # Get translation
-        translation = get_translation(
-            input_text, 
-            st.session_state.src_vocab, 
-            st.session_state.trg_vocab, 
-            st.session_state.model, 
-            st.session_state.device
-        )
+        translation = get_translation(input_text)
         
         # Add to history
         if (input_text, translation) not in st.session_state.history:
