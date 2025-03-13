@@ -299,7 +299,7 @@ with col1:
     for i, example in enumerate(examples):
         if cols[i].button(example, key=f"example_{i}"):
             st.session_state.arabic_input = example
-            st.experimental_rerun()
+            st.rerun()
     
     translate_button = st.button("Translate", type="primary", use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
