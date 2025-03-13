@@ -19,7 +19,6 @@ venv.bak/
 *.csv
 *.tsv
 *.json
-*.pkl
 *.pickle
 *.log
 
