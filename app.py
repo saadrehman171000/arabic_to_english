@@ -137,7 +137,8 @@ def load_lottieurl(url):
         return None  # Return None in case of any error
 
 # Load the animations
-translation_animation = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_jtbfg2nb.json")
+translation_animation = load_lottieurl("https://assets2.lottiefiles.com/packages/lf20_1lrxw5hz.json")
+
 
 
 
@@ -258,9 +259,6 @@ st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
-# Load animations
-translation_animation = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_bXRG9q.json")
-welcome_animation = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_jtbfg2nb.json")
 
 # Sidebar
 with st.sidebar:
