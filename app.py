@@ -126,13 +126,20 @@ def preprocess(sequence, vocab, src=True):
     sequence.append(vocab[''])
     sequence = torch.Tensor(sequence)
     return sequence
-
-# Function to load Lottie animations
+# Load animations with a fallback mechanism
 def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
+    try:
+        r = requests.get(url)
+        r.raise_for_status()
+        return r.json()  # Return the Lottie JSON data if the URL is valid
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error loading Lottie animation: {e}")
+        return None  # Return None in case of any error
+
+# Load the animations
+translation_animation = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_jtbfg2nb.json")
+
+
 
 # Function to get translation
 @st.cache_data
