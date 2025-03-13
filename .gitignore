@@ -1,0 +1,35 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+env/
+env.bak/
+venv.bak/
+
+# PyTorch
+*.h5
+
+# Data files
+*.csv
+*.tsv
+*.json
+*.pkl
+*.pickle
+*.log
+
+# IDEs
+.idea/
+.vscode/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Streamlit config files
+.config/
