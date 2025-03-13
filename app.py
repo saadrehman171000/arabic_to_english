@@ -14,8 +14,6 @@ import pyarabic.araby as araby
 import contractions
 import os
 import time
-from streamlit_lottie import st_lottie
-import requests
 import json
 
 # Load necessary NLTK data
@@ -126,21 +124,6 @@ def preprocess(sequence, vocab, src=True):
     sequence.append(vocab[''])
     sequence = torch.Tensor(sequence)
     return sequence
-# Load animations with a fallback mechanism
-def load_lottieurl(url):
-    try:
-        r = requests.get(url)
-        r.raise_for_status()
-        return r.json()  # Return the Lottie JSON data if the URL is valid
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error loading Lottie animation: {e}")
-        return None  # Return None in case of any error
-
-# Load the animations
-translation_animation = load_lottieurl("https://assets2.lottiefiles.com/packages/lf20_1lrxw5hz.json")
-
-
-
 
 # Function to get translation
 @st.cache_data
@@ -259,7 +242,6 @@ st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
-
 # Sidebar
 with st.sidebar:
     st.markdown("### About")
@@ -323,7 +305,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st_lottie(welcome_animation, height=250, key="welcome")
+    st.image("https://placeholder.svg?height=250&width=250", caption="Translation Service")
 
 # Load model and vocabularies if not already loaded
 if 'model_loaded' not in st.session_state:
@@ -376,9 +358,11 @@ if translate_button and input_text:
     st.markdown("### Translation Result")
     
     with st.spinner("Translating..."):
-        # Show animation while translating
-        st_lottie(translation_animation, height=150, key="translating")
-        time.sleep(1)  # Simulate processing time
+        # Show progress while translating
+        progress_bar = st.progress(0)
+        for percent_complete in range(100):
+            time.sleep(0.01)  # Simulate processing time
+            progress_bar.progress(percent_complete + 1)
         
         # Get translation
         translation = get_translation(
@@ -416,6 +400,6 @@ if translate_button and input_text:
 
 # Footer
 st.markdown("<div class='footer'>", unsafe_allow_html=True)
-st.markdown("Built with ❤️ using Streamlit and PyTorch | [GitHub Repository](https://github.com/saadrehman171000/arabic_to_english)")
+st.markdown("Built with ❤️ using Streamlit and PyTorch | [GitHub Repository](https://github.com/your-repository)")
 st.markdown("</div>", unsafe_allow_html=True)
 
