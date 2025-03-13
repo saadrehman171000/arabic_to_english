@@ -12,9 +12,10 @@ import re
 import unicodedata
 import pyarabic.araby as araby
 import contractions
+import os
 
 # Load necessary NLTK data
-nltk.download('punkt')
+os.environ['NLTK_DATA'] = './punkt'
 
 # Define the model architecture first
 class Encoder(nn.Module):
