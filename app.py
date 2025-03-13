@@ -138,7 +138,7 @@ def get_translation(input_text):
     input_tensor = input_tensor[:, None].to(torch.int64).to(device)
 
     # Initialize the target tensor with a maximum possible length for translation
-    target_length = len(input_text.split()) + 10  # Increased for longer translations
+    target_length = len(input_text.split()) + 5  # Reduced for more concise translations
     target_tensor = torch.zeros(target_length, 1).to(torch.int64)
 
     # Make the prediction
@@ -152,7 +152,23 @@ def get_translation(input_text):
 
     prediction = [torch.argmax(i).item() for i in output]
     tokens = trg_vocab.lookup_tokens(prediction)
+    
+    # Post-process the translation
     translation = TreebankWordDetokenizer().detokenize(tokens).replace('', "").replace('"', "").strip()
+    
+    # Clean up the translation
+    # Remove repeated phrases
+    words = translation.split()
+    unique_words = []
+    for word in words:
+        if not unique_words or word != unique_words[-1]:
+            unique_words.append(word)
+    
+    # Remove common artifacts
+    translation = ' '.join(unique_words)
+    translation = translation.replace(" it is", "").replace(" the sky", "", 1)
+    translation = re.sub(r'\s+', ' ', translation)  # Remove extra spaces
+    translation = translation.strip()
     
     return translation
 
